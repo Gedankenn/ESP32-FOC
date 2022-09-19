@@ -1,0 +1,15 @@
+{
+  "C_Cpp.intelliSenseEngine": "Tag Parser",
+  "idf.adapterTargetName": "esp32",
+  "idf.portWin": "COM5",
+  "idf.openOcdConfigs": [
+    "board/esp32-wrover-kit-3.3v.cfg"
+  ],
+  "files.associations": {
+    "adc_cali_scheme.h": "c",
+    "adc.h": "c",
+    "adc_oneshot.h": "c",
+    "adc_cali.h": "c"
+  },
+  "idf.flashType": "UART"
+}
