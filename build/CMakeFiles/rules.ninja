@@ -1324,7 +1324,7 @@ rule C_STATIC_LIBRARY_LINKER____idf_main_
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = C:\Users\gedan\.espressif\tools\cmake\3.23.1\bin\cmake.exe --regenerate-during-build -SC:\Codigos_esp\FOC_IMPLEMENTATION\sample_project -BC:\Codigos_esp\FOC_IMPLEMENTATION\sample_project\build
+  command = C:\Users\gedan\.espressif\tools\cmake\3.23.1\bin\cmake.exe --regenerate-during-build -SC:\ESP32-CODIGOS\ESP32-FOC -BC:\ESP32-CODIGOS\ESP32-FOC\build
   description = Re-running CMake...
   generator = 1
 

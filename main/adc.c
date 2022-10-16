@@ -1,17 +1,6 @@
 
 #include "adc.h"
-#include "soc/soc_caps.h"
-#include "esp_log.h"
-#include "driver/adc.h"
-#include "esp_adc/adc_oneshot.h"
-#include "esp_adc/adc_cali.h"
-#include "esp_adc/adc_cali_scheme.h"
-
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <inttypes.h>
-
+//*--------------------------------------------------------------
 //*--------------------------------------------------------------
 extern bool do_calibration1;
 extern adc_oneshot_unit_handle_t adc1_handle;
@@ -20,7 +9,6 @@ extern adc_cali_handle_t adc1_cali_handle;
 //* ADC INIT
 void adc_init(void){
     //* ADC INIT ---------------------------------
-    adc_oneshot_unit_handle_t adc1_handle;
     adc_oneshot_unit_init_cfg_t init_config1 = {
         .unit_id = ADC_UNIT_1,
     };
@@ -34,7 +22,7 @@ void adc_init(void){
     ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1_handle, EXAMPLE_ADC1_CHAN0, &config));
 
     //* ADC calibration ----------------------------
-    adc_cali_handle_t adc1_cali_handle = NULL;
+    adc1_cali_handle = NULL;
     do_calibration1 = example_adc_calibration_init(ADC_UNIT_1, ADC_ATTEN_DB_11, &adc1_cali_handle);
 }
 

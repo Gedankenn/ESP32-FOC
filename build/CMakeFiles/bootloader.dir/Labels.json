@@ -2,34 +2,34 @@
 	"sources" : 
 	[
 		{
-			"file" : "C:/Codigos_esp/FOC_IMPLEMENTATION/sample_project/build/CMakeFiles/bootloader"
+			"file" : "C:/ESP32-CODIGOS/ESP32-FOC/build/CMakeFiles/bootloader"
 		},
 		{
-			"file" : "C:/Codigos_esp/FOC_IMPLEMENTATION/sample_project/build/CMakeFiles/bootloader.rule"
+			"file" : "C:/ESP32-CODIGOS/ESP32-FOC/build/CMakeFiles/bootloader.rule"
 		},
 		{
-			"file" : "C:/Codigos_esp/FOC_IMPLEMENTATION/sample_project/build/CMakeFiles/bootloader-complete.rule"
+			"file" : "C:/ESP32-CODIGOS/ESP32-FOC/build/CMakeFiles/bootloader-complete.rule"
 		},
 		{
-			"file" : "C:/Codigos_esp/FOC_IMPLEMENTATION/sample_project/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
+			"file" : "C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
 		},
 		{
-			"file" : "C:/Codigos_esp/FOC_IMPLEMENTATION/sample_project/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
+			"file" : "C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
 		},
 		{
-			"file" : "C:/Codigos_esp/FOC_IMPLEMENTATION/sample_project/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
+			"file" : "C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
 		},
 		{
-			"file" : "C:/Codigos_esp/FOC_IMPLEMENTATION/sample_project/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
+			"file" : "C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
 		},
 		{
-			"file" : "C:/Codigos_esp/FOC_IMPLEMENTATION/sample_project/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
+			"file" : "C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
 		},
 		{
-			"file" : "C:/Codigos_esp/FOC_IMPLEMENTATION/sample_project/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
+			"file" : "C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
 		},
 		{
-			"file" : "C:/Codigos_esp/FOC_IMPLEMENTATION/sample_project/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
+			"file" : "C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
 		}
 	],
 	"target" : 

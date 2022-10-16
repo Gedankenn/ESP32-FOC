@@ -1,13 +1,13 @@
 # Target labels
  bootloader
 # Source files and their labels
-C:/Codigos_esp/FOC_IMPLEMENTATION/sample_project/build/CMakeFiles/bootloader
-C:/Codigos_esp/FOC_IMPLEMENTATION/sample_project/build/CMakeFiles/bootloader.rule
-C:/Codigos_esp/FOC_IMPLEMENTATION/sample_project/build/CMakeFiles/bootloader-complete.rule
-C:/Codigos_esp/FOC_IMPLEMENTATION/sample_project/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
-C:/Codigos_esp/FOC_IMPLEMENTATION/sample_project/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
-C:/Codigos_esp/FOC_IMPLEMENTATION/sample_project/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
-C:/Codigos_esp/FOC_IMPLEMENTATION/sample_project/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
-C:/Codigos_esp/FOC_IMPLEMENTATION/sample_project/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
-C:/Codigos_esp/FOC_IMPLEMENTATION/sample_project/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
-C:/Codigos_esp/FOC_IMPLEMENTATION/sample_project/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
+C:/ESP32-CODIGOS/ESP32-FOC/build/CMakeFiles/bootloader
+C:/ESP32-CODIGOS/ESP32-FOC/build/CMakeFiles/bootloader.rule
+C:/ESP32-CODIGOS/ESP32-FOC/build/CMakeFiles/bootloader-complete.rule
+C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule

@@ -2,19 +2,18 @@
 #include <string.h>
 #include <stdlib.h>
 #include <inttypes.h>
-#include "soc/soc_caps.h"
 #include "esp_log.h"
-#include "driver/adc.h"
+#include "soc/soc_caps.h"
 #include "esp_adc/adc_oneshot.h"
 #include "esp_adc/adc_cali.h"
 #include "esp_adc/adc_cali_scheme.h"
 
 //*-------------- ADC CONFIG -------------------
-#define ADC1_GPIO36_CHANNEL     ADC1_CHANNEL_0
+#define ADC1_GPIO36_CHANNEL     ADC_CHANNEL_0
 #define ADC1_CHANNEL_0_GPIO_NUM 36
 
 //*ADC1 Channels
-#define EXAMPLE_ADC1_CHAN0  ADC1_GPIO36_CHANNEL
+#define EXAMPLE_ADC1_CHAN0      ADC_CHANNEL_0
 
 const static char *TAG_ADC = "ADC";
 // *--------- END CONFIG ------------------------

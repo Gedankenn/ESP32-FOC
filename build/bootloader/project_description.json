@@ -1,8 +1,8 @@
 {
     "project_name":       "bootloader",
     "project_path":       "C:/Users/gedan/esp/esp-idf/components/bootloader/subproject",
-    "build_dir":          "C:/Codigos_esp/FOC_IMPLEMENTATION/sample_project/build/bootloader",
-    "config_file":        "C:/Codigos_esp/FOC_IMPLEMENTATION/sample_project/sdkconfig",
+    "build_dir":          "C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader",
+    "config_file":        "C:/ESP32-CODIGOS/ESP32-FOC/sdkconfig",
     "config_defaults":    "",
     "app_elf":            "bootloader.elf",
     "app_bin":            "bootloader.bin",
