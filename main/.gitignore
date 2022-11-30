@@ -92,6 +92,9 @@ flake8_output.txt
 # ESP-IDF default build directory name
 build
 
+.vscode
+.devcontainer
+
 # lock files for examples and components
 dependencies.lock
 
