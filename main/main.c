@@ -15,7 +15,7 @@
 #include "adc.h"
 #include "gpio.h"
 #include "FEM.h"
-//#include "PWM.h"
+#include "PWM.h"
 
 int adc_raw[2][10];
 double voltage[2][10];
@@ -64,10 +64,10 @@ void FOC(void *arg)
         if(V >= Tmax){
             V = Tmax;
         }
-        //atualiza_velocidade(rad);
+        atualiza_velocidade(V);
         printf("V = %f\n",V);
         printf("rad = %f\n",rad);
-        vTaskDelay(xDelay*10);
+        vTaskDelay(xDelay*2);
     }
 }
 
@@ -76,7 +76,7 @@ void app_main(void)
 
     adc_init();
     gpio_init();
-    //PWM_init();
+    PWM_init();
 
     printf("Minimum free heap size: %"PRIu32" bytes\n", esp_get_minimum_free_heap_size());
     xTaskCreate(FOC,"OPEN-LOOP",2048,NULL,5,&handle_FOC);
