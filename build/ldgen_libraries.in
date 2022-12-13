@@ -6,6 +6,7 @@ $<TARGET_FILE:__idf_esp_pm>
 $<TARGET_FILE:__idf_mbedtls>
 $<TARGET_FILE:__idf_esp_app_format>
 $<TARGET_FILE:__idf_bootloader_support>
+$<TARGET_FILE:__idf_esp_partition>
 $<TARGET_FILE:__idf_app_update>
 $<TARGET_FILE:__idf_spi_flash>
 $<TARGET_FILE:__idf_pthread>
@@ -47,10 +48,9 @@ $<TARGET_FILE:__idf_esp_lcd>
 $<TARGET_FILE:__idf_protobuf-c>
 $<TARGET_FILE:__idf_protocomm>
 $<TARGET_FILE:__idf_esp_local_ctrl>
-$<TARGET_FILE:__idf_sdmmc>
-$<TARGET_FILE:__idf_esp_serial_slave_link>
 $<TARGET_FILE:__idf_espcoredump>
 $<TARGET_FILE:__idf_wear_levelling>
+$<TARGET_FILE:__idf_sdmmc>
 $<TARGET_FILE:__idf_fatfs>
 $<TARGET_FILE:__idf_json>
 $<TARGET_FILE:__idf_mqtt>

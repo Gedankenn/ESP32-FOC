@@ -1,4 +1,4 @@
-# Install script for directory: C:/ESP32-CODIGOS/ESP32-FOC/main
+# Install script for directory: C:/Users/gedan/ESP-CODES/ESP32-FOC/main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

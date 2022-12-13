@@ -1,13 +1,13 @@
 # Target labels
  bootloader
 # Source files and their labels
-C:/ESP32-CODIGOS/ESP32-FOC/build/CMakeFiles/bootloader
-C:/ESP32-CODIGOS/ESP32-FOC/build/CMakeFiles/bootloader.rule
-C:/ESP32-CODIGOS/ESP32-FOC/build/CMakeFiles/bootloader-complete.rule
-C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
-C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
-C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
-C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
-C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
-C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
-C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
+C:/Users/gedan/ESP-CODES/ESP32-FOC/build/CMakeFiles/bootloader
+C:/Users/gedan/ESP-CODES/ESP32-FOC/build/CMakeFiles/bootloader.rule
+C:/Users/gedan/ESP-CODES/ESP32-FOC/build/CMakeFiles/bootloader-complete.rule
+C:/Users/gedan/ESP-CODES/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+C:/Users/gedan/ESP-CODES/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+C:/Users/gedan/ESP-CODES/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+C:/Users/gedan/ESP-CODES/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+C:/Users/gedan/ESP-CODES/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+C:/Users/gedan/ESP-CODES/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+C:/Users/gedan/ESP-CODES/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule

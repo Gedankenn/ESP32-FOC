@@ -124,3 +124,31 @@ $$
     V_q
     \end{array}\right)
 $$
+
+# V/F Control tactic
+For the first run tests, the V/F OpenLoop method was choose.
+
+V/F Control is a open loop method that consist of aplying a gain value for the Voltage of the motor pins.
+
+$$
+G_f = \frac{V_{max}}{\omega_{max}}\\
+V_{max} = G_f \omega_{max}
+$$
+
+Code example:
+```
+const double Tmax       = 12;
+const double max_rpm    = 10000;
+const double Gf         = Tmax/(max_rpm);
+
+V = ref*Gf;
+double comp_value;
+comp_value = V*BLDC_MCPWM_PERIOD/Tmax;
+duty_A = comp_value*FEM_sin(theta);
+duty_B = comp_value*FEM_sin(theta + pi/3.0);
+duty_C = comp_value*FEM_sin(theta - pi/3.0);
+```
+
+by changing the value of the $\omega$ we can adjust the Voltage value so the motor can run. 
+
+Another necessary step is muntiplying the $\omega_{ref}$ that comes form the reference to the Gain of the V/F method by all the 3 phases FEM curve.

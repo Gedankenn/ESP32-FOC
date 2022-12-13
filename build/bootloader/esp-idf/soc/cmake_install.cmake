@@ -39,6 +39,6 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader/esp-idf/soc/esp32/cmake_install.cmake")
+  include("C:/Users/gedan/ESP-CODES/ESP32-FOC/build/bootloader/esp-idf/soc/esp32/cmake_install.cmake")
 endif()
 

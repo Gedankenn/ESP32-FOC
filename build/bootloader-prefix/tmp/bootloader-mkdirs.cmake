@@ -5,15 +5,18 @@ cmake_minimum_required(VERSION 3.5)
 
 file(MAKE_DIRECTORY
   "C:/Users/gedan/esp/esp-idf/components/bootloader/subproject"
-  "C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader"
-  "C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix"
-  "C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/tmp"
-  "C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp"
-  "C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src"
-  "C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp"
+  "C:/Users/gedan/ESP-CODES/ESP32-FOC/build/bootloader"
+  "C:/Users/gedan/ESP-CODES/ESP32-FOC/build/bootloader-prefix"
+  "C:/Users/gedan/ESP-CODES/ESP32-FOC/build/bootloader-prefix/tmp"
+  "C:/Users/gedan/ESP-CODES/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp"
+  "C:/Users/gedan/ESP-CODES/ESP32-FOC/build/bootloader-prefix/src"
+  "C:/Users/gedan/ESP-CODES/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp"
 )
 
 set(configSubDirs )
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "C:/ESP32-CODIGOS/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
+    file(MAKE_DIRECTORY "C:/Users/gedan/ESP-CODES/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
 endforeach()
+if(cfgdir)
+  file(MAKE_DIRECTORY "C:/Users/gedan/ESP-CODES/ESP32-FOC/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
+endif()

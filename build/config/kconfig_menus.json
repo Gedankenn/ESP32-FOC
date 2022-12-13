@@ -1313,6 +1313,16 @@
         "children": [],
         "depends_on": null,
         "help": null,
+        "id": "SOC_SPI_MAX_CS_NUM",
+        "name": "SOC_SPI_MAX_CS_NUM",
+        "range": null,
+        "title": null,
+        "type": "int"
+    },
+    {
+        "children": [],
+        "depends_on": null,
+        "help": null,
         "id": "SOC_SPI_MAXIMUM_BUFFER_SIZE",
         "name": "SOC_SPI_MAXIMUM_BUFFER_SIZE",
         "range": null,
@@ -1753,16 +1763,6 @@
         "children": [],
         "depends_on": null,
         "help": null,
-        "id": "SOC_BLE_DONT_UPDATE_OWN_RPA",
-        "name": "SOC_BLE_DONT_UPDATE_OWN_RPA",
-        "range": null,
-        "title": null,
-        "type": "bool"
-    },
-    {
-        "children": [],
-        "depends_on": null,
-        "help": null,
         "id": "SOC_WIFI_HW_TSF",
         "name": "SOC_WIFI_HW_TSF",
         "range": null,
@@ -1825,6 +1825,16 @@
         "help": null,
         "id": "SOC_BLE_SUPPORTED",
         "name": "SOC_BLE_SUPPORTED",
+        "range": null,
+        "title": null,
+        "type": "bool"
+    },
+    {
+        "children": [],
+        "depends_on": null,
+        "help": null,
+        "id": "SOC_BLE_MESH_SUPPORTED",
+        "name": "SOC_BLE_MESH_SUPPORTED",
         "range": null,
         "title": null,
         "type": "bool"
@@ -5185,6 +5195,16 @@
                                                 "type": "int"
                                             },
                                             {
+                                                "children": [],
+                                                "depends_on": "BT_GATTS_ENABLE && BT_BLUEDROID_ENABLED && BT_BLUEDROID_ENABLED",
+                                                "help": "Maximum GATT Service Attributes Count",
+                                                "id": "BT_GATT_MAX_SR_ATTRIBUTES",
+                                                "name": "BT_GATT_MAX_SR_ATTRIBUTES",
+                                                "range": null,
+                                                "title": "Max GATT Service Attributes",
+                                                "type": "int"
+                                            },
+                                            {
                                                 "children": [
                                                     {
                                                         "children": [],
@@ -5235,6 +5255,16 @@
                                     },
                                     {
                                         "children": [
+                                            {
+                                                "children": [],
+                                                "depends_on": "BT_GATTC_ENABLE && BT_BLUEDROID_ENABLED",
+                                                "help": "Maximum GATTC cache characteristic count",
+                                                "id": "BT_GATTC_MAX_CACHE_CHAR",
+                                                "name": "BT_GATTC_MAX_CACHE_CHAR",
+                                                "range": null,
+                                                "title": "Max gattc cache characteristic for discover",
+                                                "type": "int"
+                                            },
                                             {
                                                 "children": [],
                                                 "depends_on": "BT_GATTC_ENABLE && BT_BLUEDROID_ENABLED",
@@ -7264,7 +7294,7 @@
                             },
                             {
                                 "children": [],
-                                "depends_on": "BT_BLUEDROID_ENABLED && (BTDM_CTRL_MODE_BTDM || BTDM_CTRL_MODE_BLE_ONLY) && BT_BLUEDROID_ENABLED",
+                                "depends_on": "BT_BLUEDROID_ENABLED && BT_BLE_ENABLED && BT_BLUEDROID_ENABLED",
                                 "help": "Originally, when doing BLE active scan, Bluedroid will not report adv to application layer\nuntil receive scan response. This option is used to disable the behavior. When enable this option,\nBluedroid will report adv data or scan response to application layer immediately.\n\n# Memory reserved at start of DRAM for Bluetooth stack",
                                 "id": "BT_BLE_ACT_SCAN_REP_ADV_SCAN",
                                 "name": "BT_BLE_ACT_SCAN_REP_ADV_SCAN",
@@ -9635,6 +9665,16 @@
                                 "range": null,
                                 "title": "Number of groups the LPN can subscribe to",
                                 "type": "int"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": "BLE_MESH_LOW_POWER && BLE_MESH",
+                                "help": "Automatically subscribe all nodes address when friendship\nestablished.",
+                                "id": "BLE_MESH_LPN_SUB_ALL_NODES_ADDR",
+                                "name": "BLE_MESH_LPN_SUB_ALL_NODES_ADDR",
+                                "range": null,
+                                "title": "Automatically subscribe all nodes address",
+                                "type": "bool"
                             }
                         ],
                         "depends_on": "BLE_MESH_NODE && BLE_MESH",
@@ -10798,6 +10838,16 @@
                                 "name": "MCPWM_ISR_IRAM_SAFE",
                                 "range": null,
                                 "title": "Place MCPWM ISR function into IRAM",
+                                "type": "bool"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": "SOC_MCPWM_SUPPORTED",
+                                "help": "Place MCPWM control functions (like set_compare_value) into IRAM,\nso that these functions can be IRAM-safe and able to be called in the other IRAM interrupt context.\nEnabling this option can improve driver performance as well.",
+                                "id": "MCPWM_CTRL_FUNC_IN_IRAM",
+                                "name": "MCPWM_CTRL_FUNC_IN_IRAM",
+                                "range": null,
+                                "title": "Place MCPWM control functions into IRAM",
                                 "type": "bool"
                             },
                             {
@@ -12010,7 +12060,7 @@
                             {
                                 "children": [],
                                 "depends_on": "ESP_CONSOLE_USB_SERIAL_JTAG || ESP_CONSOLE_SECONDARY_USB_SERIAL_JTAG",
-                                "help": "When the chip goes sleep or software reset, the clock source would change to XTAL\nand switch off the BBPLL clock for saving power. However, this might make the\nUSB_SERIAL_JTAG down which depends on BBPLL as its unique clock source.\nTherefore, this is used for keeping bbpll clock always on when USB_SERIAL_JTAG PORT is using.\nIf you want to use USB_SERIAL_JTAG under sw_reset case or sleep-wakeup case, you shoule select\nthis option. But be aware that this might increase the power consumption.",
+                                "help": "When software switches the CPU clock source from BBPLL clock to XTAL, usually the BBPLL will be\nswitched off. This helps to save some power consumption in sleep modes. However this may also happen\nduring the software reset, resulting in the inactive (disconnected from host) of the USB_SERIAL_JTAG\ndevice during software reset.\n\nWhen USB_SERIAL_JTAG is being used, whether to turn off the clock source during software reset and in\nsleep modes is determined by RTC_CLOCK_BBPLL_POWER_ON_WITH_USB.\n\n  - When RTC_CLOCK_BBPLL_POWER_ON_WITH_USB is enabled, the clock will be kept, so that the\n    USB_SERIAL_JTAG will keep alive during software reset. The side-effect is the increasing of power\n    consumption during sleep modes, even though USB_SERIAL_JTAG will not work in sleep modes.\n\n  - When RTC_CLOCK_BBPLL_POWER_ON_WITH_USB is disabled, the clock will be turned off. USB_SERIAL_JTAG\n    will be inactive during software reset and in sleep modes. This saves some power consumption in\n    sleep modes.\n\nWhen USB_SERIAL_JTAG is not being used, software will always turn off BBPLL regardless of\nRTC_CLOCK_BBPLL_POWER_ON_WITH_USB is set or not.",
                                 "id": "RTC_CLOCK_BBPLL_POWER_ON_WITH_USB",
                                 "name": "RTC_CLOCK_BBPLL_POWER_ON_WITH_USB",
                                 "range": null,
@@ -17394,11 +17444,21 @@
                             {
                                 "children": [],
                                 "depends_on": null,
-                                "help": "Set maximum segment lifetime in in milliseconds.",
+                                "help": "Set maximum segment lifetime in milliseconds.",
                                 "id": "LWIP_TCP_MSL",
                                 "name": "LWIP_TCP_MSL",
                                 "range": null,
                                 "title": "Maximum segment lifetime (MSL)",
+                                "type": "int"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": null,
+                                "help": "Set maximum segment lifetime in milliseconds.",
+                                "id": "LWIP_TCP_FIN_WAIT_TIMEOUT",
+                                "name": "LWIP_TCP_FIN_WAIT_TIMEOUT",
+                                "range": null,
+                                "title": "Maximum FIN segment lifetime",
                                 "type": "int"
                             },
                             {
@@ -20161,6 +20221,96 @@
                     {
                         "children": [
                             {
+                                "children": [],
+                                "depends_on": "OPENTHREAD_ENABLED",
+                                "help": "Select this option to enable dynamic log level control for OpenThread",
+                                "id": "OPENTHREAD_LOG_LEVEL_DYNAMIC",
+                                "name": "OPENTHREAD_LOG_LEVEL_DYNAMIC",
+                                "range": null,
+                                "title": "Enable dynamic log level control",
+                                "type": "bool"
+                            },
+                            {
+                                "children": [
+                                    {
+                                        "children": [],
+                                        "depends_on": "<choice OPENTHREAD_LOG_LEVEL>",
+                                        "help": null,
+                                        "id": "OPENTHREAD_LOG_LEVEL_NONE",
+                                        "name": "OPENTHREAD_LOG_LEVEL_NONE",
+                                        "range": null,
+                                        "title": "No logs",
+                                        "type": "bool"
+                                    },
+                                    {
+                                        "children": [],
+                                        "depends_on": "<choice OPENTHREAD_LOG_LEVEL>",
+                                        "help": null,
+                                        "id": "OPENTHREAD_LOG_LEVEL_CRIT",
+                                        "name": "OPENTHREAD_LOG_LEVEL_CRIT",
+                                        "range": null,
+                                        "title": "Error logs",
+                                        "type": "bool"
+                                    },
+                                    {
+                                        "children": [],
+                                        "depends_on": "<choice OPENTHREAD_LOG_LEVEL>",
+                                        "help": null,
+                                        "id": "OPENTHREAD_LOG_LEVEL_WARN",
+                                        "name": "OPENTHREAD_LOG_LEVEL_WARN",
+                                        "range": null,
+                                        "title": "Warning logs",
+                                        "type": "bool"
+                                    },
+                                    {
+                                        "children": [],
+                                        "depends_on": "<choice OPENTHREAD_LOG_LEVEL>",
+                                        "help": null,
+                                        "id": "OPENTHREAD_LOG_LEVEL_NOTE",
+                                        "name": "OPENTHREAD_LOG_LEVEL_NOTE",
+                                        "range": null,
+                                        "title": "Notice logs",
+                                        "type": "bool"
+                                    },
+                                    {
+                                        "children": [],
+                                        "depends_on": "<choice OPENTHREAD_LOG_LEVEL>",
+                                        "help": null,
+                                        "id": "OPENTHREAD_LOG_LEVEL_INFO",
+                                        "name": "OPENTHREAD_LOG_LEVEL_INFO",
+                                        "range": null,
+                                        "title": "Info logs",
+                                        "type": "bool"
+                                    },
+                                    {
+                                        "children": [],
+                                        "depends_on": "<choice OPENTHREAD_LOG_LEVEL>",
+                                        "help": null,
+                                        "id": "OPENTHREAD_LOG_LEVEL_DEBG",
+                                        "name": "OPENTHREAD_LOG_LEVEL_DEBG",
+                                        "range": null,
+                                        "title": "Debug logs",
+                                        "type": "bool"
+                                    }
+                                ],
+                                "depends_on": "OPENTHREAD_ENABLED && !OPENTHREAD_LOG_LEVEL_DYNAMIC",
+                                "help": "Select OpenThread log level.",
+                                "id": "component-config-openthread-openthread-openthread-log-verbosity",
+                                "name": "OPENTHREAD_LOG_LEVEL",
+                                "title": "OpenThread log verbosity",
+                                "type": "choice"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": "OPENTHREAD_ENABLED && !OPENTHREAD_LOG_LEVEL_DYNAMIC",
+                                "help": null,
+                                "id": "OPENTHREAD_LOG_LEVEL",
+                                "name": "OPENTHREAD_LOG_LEVEL",
+                                "range": null,
+                                "title": null,
+                                "type": "int"
+                            },
+                            {
                                 "children": [
                                     {
                                         "children": [],
@@ -20229,6 +20379,16 @@
                                 "name": "OPENTHREAD_DEVICE_TYPE",
                                 "title": "Config the Thread device type",
                                 "type": "choice"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": "OPENTHREAD_ENABLED",
+                                "help": "Select this option to enable Command-Line Interface in OpenThread.",
+                                "id": "OPENTHREAD_CLI",
+                                "name": "OPENTHREAD_CLI",
+                                "range": null,
+                                "title": "Enable Openthread Command-Line Interface",
+                                "type": "bool"
                             },
                             {
                                 "children": [],
@@ -21096,315 +21256,6 @@
                 "depends_on": null,
                 "id": "component-config-tcp-transport",
                 "title": "TCP Transport",
-                "type": "menu"
-            },
-            {
-                "children": [
-                    {
-                        "children": [
-                            {
-                                "children": [],
-                                "depends_on": "TINYUSB",
-                                "help": "Specify verbosity of TinyUSB log output.",
-                                "id": "TINYUSB_DEBUG_LEVEL",
-                                "name": "TINYUSB_DEBUG_LEVEL",
-                                "range": null,
-                                "title": "TinyUSB log level (0-3)",
-                                "type": "int"
-                            },
-                            {
-                                "children": [
-                                    {
-                                        "children": [],
-                                        "depends_on": "TINYUSB",
-                                        "help": "This option allows to not create the FreeRTOS task during the driver initialization.\nUser will have to handle TinyUSB events manually.",
-                                        "id": "TINYUSB_NO_DEFAULT_TASK",
-                                        "name": "TINYUSB_NO_DEFAULT_TASK",
-                                        "range": null,
-                                        "title": "Do not create a TinyUSB task",
-                                        "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "!TINYUSB_NO_DEFAULT_TASK && TINYUSB",
-                                        "help": "Set the priority of the default TinyUSB main task.",
-                                        "id": "TINYUSB_TASK_PRIORITY",
-                                        "name": "TINYUSB_TASK_PRIORITY",
-                                        "range": null,
-                                        "title": "TinyUSB task priority",
-                                        "type": "int"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "!TINYUSB_NO_DEFAULT_TASK && TINYUSB",
-                                        "help": "Set the stack size of the default TinyUSB main task.",
-                                        "id": "TINYUSB_TASK_STACK_SIZE",
-                                        "name": "TINYUSB_TASK_STACK_SIZE",
-                                        "range": null,
-                                        "title": "TinyUSB task stack size (bytes)",
-                                        "type": "int"
-                                    }
-                                ],
-                                "depends_on": "TINYUSB",
-                                "id": "component-config-tinyusb-stack-use-tinyusb-stack-tinyusb-task-configuration",
-                                "title": "TinyUSB task configuration",
-                                "type": "menu"
-                            },
-                            {
-                                "children": [
-                                    {
-                                        "children": [],
-                                        "depends_on": "TINYUSB",
-                                        "help": "Enable this option, USB device will use Espressif's vendor ID as its VID.\nThis is helpful at product develop stage.",
-                                        "id": "TINYUSB_DESC_USE_ESPRESSIF_VID",
-                                        "name": "TINYUSB_DESC_USE_ESPRESSIF_VID",
-                                        "range": null,
-                                        "title": "VID: Use Espressif's vendor ID",
-                                        "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "!TINYUSB_DESC_USE_ESPRESSIF_VID && TINYUSB",
-                                        "help": "Custom Vendor ID.",
-                                        "id": "TINYUSB_DESC_CUSTOM_VID",
-                                        "name": "TINYUSB_DESC_CUSTOM_VID",
-                                        "range": null,
-                                        "title": "VID: Custom vendor ID",
-                                        "type": "hex"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "TINYUSB",
-                                        "help": "Default TinyUSB PID assigning uses values 0x4000...0x4007.",
-                                        "id": "TINYUSB_DESC_USE_DEFAULT_PID",
-                                        "name": "TINYUSB_DESC_USE_DEFAULT_PID",
-                                        "range": null,
-                                        "title": "PID: Use a default PID assigned to TinyUSB",
-                                        "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "!TINYUSB_DESC_USE_DEFAULT_PID && TINYUSB",
-                                        "help": "Custom Product ID.",
-                                        "id": "TINYUSB_DESC_CUSTOM_PID",
-                                        "name": "TINYUSB_DESC_CUSTOM_PID",
-                                        "range": null,
-                                        "title": "PID: Custom product ID",
-                                        "type": "hex"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "TINYUSB",
-                                        "help": "Version of the firmware of the USB device.",
-                                        "id": "TINYUSB_DESC_BCD_DEVICE",
-                                        "name": "TINYUSB_DESC_BCD_DEVICE",
-                                        "range": null,
-                                        "title": "bcdDevice",
-                                        "type": "hex"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "TINYUSB",
-                                        "help": "Name of the manufacturer of the USB device.",
-                                        "id": "TINYUSB_DESC_MANUFACTURER_STRING",
-                                        "name": "TINYUSB_DESC_MANUFACTURER_STRING",
-                                        "range": null,
-                                        "title": "Manufacturer name",
-                                        "type": "string"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "TINYUSB",
-                                        "help": "Name of the USB device.",
-                                        "id": "TINYUSB_DESC_PRODUCT_STRING",
-                                        "name": "TINYUSB_DESC_PRODUCT_STRING",
-                                        "range": null,
-                                        "title": "Product name",
-                                        "type": "string"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "TINYUSB",
-                                        "help": "Serial number of the USB device.",
-                                        "id": "TINYUSB_DESC_SERIAL_STRING",
-                                        "name": "TINYUSB_DESC_SERIAL_STRING",
-                                        "range": null,
-                                        "title": "Serial string",
-                                        "type": "string"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "TINYUSB_CDC_ENABLED && TINYUSB",
-                                        "help": "Name of the CDC device.",
-                                        "id": "TINYUSB_DESC_CDC_STRING",
-                                        "name": "TINYUSB_DESC_CDC_STRING",
-                                        "range": null,
-                                        "title": "CDC Device String",
-                                        "type": "string"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "TINYUSB_MSC_ENABLED && TINYUSB",
-                                        "help": "Name of the MSC device.",
-                                        "id": "TINYUSB_DESC_MSC_STRING",
-                                        "name": "TINYUSB_DESC_MSC_STRING",
-                                        "range": null,
-                                        "title": "MSC Device String",
-                                        "type": "string"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "TINYUSB_HID_COUNT > 0 && TINYUSB",
-                                        "help": "Name of the HID device",
-                                        "id": "TINYUSB_DESC_HID_STRING",
-                                        "name": "TINYUSB_DESC_HID_STRING",
-                                        "range": null,
-                                        "title": "HID Device String",
-                                        "type": "string"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "TINYUSB_MIDI_ENABLED && TINYUSB",
-                                        "help": "Name of the MIDI device",
-                                        "id": "TINYUSB_DESC_MIDI_STRING",
-                                        "name": "TINYUSB_DESC_MIDI_STRING",
-                                        "range": null,
-                                        "title": "MIDI Device String",
-                                        "type": "string"
-                                    }
-                                ],
-                                "depends_on": "TINYUSB",
-                                "id": "component-config-tinyusb-stack-use-tinyusb-stack-descriptor-configuration",
-                                "title": "Descriptor configuration",
-                                "type": "menu"
-                            },
-                            {
-                                "children": [
-                                    {
-                                        "children": [
-                                            {
-                                                "children": [],
-                                                "depends_on": "TINYUSB_MSC_ENABLED && TINYUSB",
-                                                "help": "MSC FIFO size, in bytes.",
-                                                "id": "TINYUSB_MSC_BUFSIZE",
-                                                "name": "TINYUSB_MSC_BUFSIZE",
-                                                "range": null,
-                                                "title": "MSC FIFO size",
-                                                "type": "int"
-                                            }
-                                        ],
-                                        "depends_on": "TINYUSB",
-                                        "help": "Enable TinyUSB MSC feature.",
-                                        "id": "TINYUSB_MSC_ENABLED",
-                                        "name": "TINYUSB_MSC_ENABLED",
-                                        "range": null,
-                                        "title": "Enable TinyUSB MSC feature",
-                                        "type": "bool"
-                                    }
-                                ],
-                                "depends_on": "TINYUSB",
-                                "id": "component-config-tinyusb-stack-use-tinyusb-stack-massive-storage-class-msc-",
-                                "title": "Massive Storage Class (MSC)",
-                                "type": "menu"
-                            },
-                            {
-                                "children": [
-                                    {
-                                        "children": [
-                                            {
-                                                "children": [],
-                                                "depends_on": "TINYUSB_CDC_ENABLED && TINYUSB",
-                                                "help": "Number of independent serial ports.",
-                                                "id": "TINYUSB_CDC_COUNT",
-                                                "name": "TINYUSB_CDC_COUNT",
-                                                "range": null,
-                                                "title": "CDC Channel Count",
-                                                "type": "int"
-                                            },
-                                            {
-                                                "children": [],
-                                                "depends_on": "TINYUSB_CDC_ENABLED && TINYUSB",
-                                                "help": "CDC FIFO size of RX channel.",
-                                                "id": "TINYUSB_CDC_RX_BUFSIZE",
-                                                "name": "TINYUSB_CDC_RX_BUFSIZE",
-                                                "range": null,
-                                                "title": "CDC FIFO size of RX channel",
-                                                "type": "int"
-                                            },
-                                            {
-                                                "children": [],
-                                                "depends_on": "TINYUSB_CDC_ENABLED && TINYUSB",
-                                                "help": "CDC FIFO size of TX channel.",
-                                                "id": "TINYUSB_CDC_TX_BUFSIZE",
-                                                "name": "TINYUSB_CDC_TX_BUFSIZE",
-                                                "range": null,
-                                                "title": "CDC FIFO size of TX channel",
-                                                "type": "int"
-                                            }
-                                        ],
-                                        "depends_on": "TINYUSB",
-                                        "help": "Enable TinyUSB CDC feature.",
-                                        "id": "TINYUSB_CDC_ENABLED",
-                                        "name": "TINYUSB_CDC_ENABLED",
-                                        "range": null,
-                                        "title": "Enable TinyUSB CDC feature",
-                                        "type": "bool"
-                                    }
-                                ],
-                                "depends_on": "TINYUSB",
-                                "id": "component-config-tinyusb-stack-use-tinyusb-stack-communication-device-class-cdc-",
-                                "title": "Communication Device Class (CDC)",
-                                "type": "menu"
-                            },
-                            {
-                                "children": [
-                                    {
-                                        "children": [],
-                                        "depends_on": "TINYUSB",
-                                        "help": "Enable TinyUSB MIDI feature.",
-                                        "id": "TINYUSB_MIDI_ENABLED",
-                                        "name": "TINYUSB_MIDI_ENABLED",
-                                        "range": null,
-                                        "title": "Enable TinyUSB MIDI feature",
-                                        "type": "bool"
-                                    }
-                                ],
-                                "depends_on": "TINYUSB",
-                                "id": "component-config-tinyusb-stack-use-tinyusb-stack-midi",
-                                "title": "MIDI",
-                                "type": "menu"
-                            },
-                            {
-                                "children": [
-                                    {
-                                        "children": [],
-                                        "depends_on": "TINYUSB",
-                                        "help": "Setting value greater than 0 will enable TinyUSB HID feature.",
-                                        "id": "TINYUSB_HID_COUNT",
-                                        "name": "TINYUSB_HID_COUNT",
-                                        "range": null,
-                                        "title": "TinyUSB HID interfaces count",
-                                        "type": "int"
-                                    }
-                                ],
-                                "depends_on": "TINYUSB",
-                                "id": "component-config-tinyusb-stack-use-tinyusb-stack-human-interface-device-class-hid-",
-                                "title": "Human Interface Device Class (HID)",
-                                "type": "menu"
-                            }
-                        ],
-                        "depends_on": "USB_OTG_SUPPORTED",
-                        "help": "Enable TinyUSB stack support.\nNote that, esp-idf only uses the device stack provided by TinyUSB.",
-                        "id": "TINYUSB",
-                        "name": "TINYUSB",
-                        "range": null,
-                        "title": "Use TinyUSB Stack",
-                        "type": "bool"
-                    }
-                ],
-                "depends_on": null,
-                "id": "component-config-tinyusb-stack",
-                "title": "TinyUSB Stack",
                 "type": "menu"
             },
             {
