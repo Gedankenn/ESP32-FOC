@@ -88,14 +88,4 @@ void app_main(void)
     {
         vTaskDelay(xDelay);
     }
-    // while(1) {
-    //     // ESP_ERROR_CHECK(adc_oneshot_read(adc1_handle, EXAMPLE_ADC1_CHAN0, &adc_raw[0][0]));
-    //     // ESP_LOGI(TAG_ADC, "ADC%d Channel[%d] Raw Data: %d", ADC_UNIT_1 + 1, EXAMPLE_ADC1_CHAN0, adc_raw[0][0]);
-    //     // vTaskDelay(100*xDelay);
-    //     vTaskDelay(xDelay*100);
-    // }
-    // ESP_ERROR_CHECK(adc_oneshot_del_unit(adc1_handle));
-    // if (do_calibration1) {
-    //     example_adc_calibration_deinit(adc1_cali_handle);
-    // }
 }
