@@ -16,6 +16,7 @@
 #include "gpio.h"
 #include "FEM.h"
 #include "PWM.h"
+#include "VF.h"
 
 
 int adc_raw[2][10];
@@ -43,37 +44,6 @@ adc_oneshot_unit_handle_t adc1_handle;
 adc_cali_handle_t adc1_cali_handle;
 bool do_calibration1;
 
-//! Function that executes de necessary steps for the FOC implementation
-//! First try will be in open loop
-const static char *TAG_FOC = "FOC";
-
-void FOC(void *arg)
-{
-    while(1){
-        ESP_LOGI(TAG_FOC, "Entrada da task FOC");
-        //** Leitura da referencia
-        ESP_ERROR_CHECK(adc_oneshot_read(adc1_handle, EXAMPLE_ADC1_CHAN0, &adc_raw[0][0]));
-        // ESP_LOGI(TAG_ADC, "ADC%d Channel[%d] Raw Data: %d", ADC_UNIT_1 + 1, EXAMPLE_ADC1_CHAN0, adc_raw[0][0]);
-        ref = adc_raw[0][0];
-        ref = ref*gain_adc;
-
-        //* ideally the ref will be a value of angular velocity in rpm
-        rad = ref*rpm_to_rad;
-        theta = fmod((theta+rad*T_adc),(2*pi));
-
-        V = ref*Gf;
-        if(V >= Tmax){
-            V = Tmax;
-        }
-        atualiza_velocidade(V, theta);
-        printf("V = %f\n",V);
-        printf("rad = %f\n",rad);
-        printf("theta = %f\n",theta);
-        vTaskDelay(xDelay);
-
-    }
-}
-
 void app_main(void)
 {
 
@@ -82,7 +52,7 @@ void app_main(void)
     PWM_init();
 
     printf("Minimum free heap size: %"PRIu32" bytes\n", esp_get_minimum_free_heap_size());
-    xTaskCreate(FOC,"OPEN-LOOP",2048,NULL,5,&handle_FOC);
+    xTaskCreate(VF,"OPEN-LOOP",2048,NULL,5,&handle_FOC);
 
     while(1)
     {
