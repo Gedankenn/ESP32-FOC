@@ -13,7 +13,8 @@
     "adc_cali.h": "c",
     "cmath": "c",
     "numbers": "c",
-    "pwm.h": "c"
+    "pwm.h": "c",
+    "vf.h": "c"
   },
   "idf.flashType": "UART"
 }

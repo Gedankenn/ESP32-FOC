@@ -2,9 +2,9 @@
 //! First try will be in open loop
 #include "VF.h"
 
-const static char *TAG_VF = "VF";
+const static char *TAG_VF = "Open-Loop VF";
 
-void VF(void *arg)
+void OpenLoopVF_Control(void *arg)
 {
     while(1){
         ESP_LOGI(TAG_VF, "Entrada da task VF");
