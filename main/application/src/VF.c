@@ -21,7 +21,7 @@ void OpenLoopVF_Control(void *arg)
 
         theta = fmod((theta+rad*T_adc),(2*pi)); //* the position in radians
 
-        Volts = ref*Gf; //* the actual VF control
+        Volts = ref*Gf*gain_adc; //* the actual VF control
         if(Volts >= Tmax){
             Volts = Tmax;
         }

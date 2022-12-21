@@ -131,19 +131,16 @@ For the first run tests, the V/F OpenLoop method was choose.
 V/F Control is a open loop method that consist of aplying a gain value for the Voltage of the motor pins.
 
 $$
-G_f = \frac{V_{max}}{\omega_{max}}\\
-V_{max} = G_f \omega_{max}
+    G_f = \frac{V_{max}}{\omega_{max}} \\
+    V_{max} = G_f \omega_{max}
 $$
 
 Code example:
 ```
-const double Tmax       = 12;
-const double max_rpm    = 10000;
-const double Gf         = Tmax/(max_rpm);
+Volts = ref*Gf*gain_adc;
+comp_value = Volts*BLDC_MCPWM_PERIOD/Tmax;
 
-V = ref*Gf;
-double comp_value;
-comp_value = V*BLDC_MCPWM_PERIOD/Tmax;
+//here is where de duty cycle is defined
 duty_A = comp_value*FEM_sin(theta);
 duty_B = comp_value*FEM_sin(theta + pi/3.0);
 duty_C = comp_value*FEM_sin(theta - pi/3.0);
