@@ -1,3 +1,5 @@
+#include "driver/inc/adc.h"
+
 double ref;
 double rad;
 double theta            = 0;
@@ -10,3 +12,5 @@ const double max_rpm    = 10000;
 
 
 void OpenLoopVF_Control(void *arg);
+double FEM_sin(double ang);
+void UpdateSpeed(double rpm, double theta);

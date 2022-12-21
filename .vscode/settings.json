@@ -14,7 +14,8 @@
     "cmath": "c",
     "numbers": "c",
     "pwm.h": "c",
-    "vf.h": "c"
+    "vf.h": "c",
+    "functional": "c"
   },
   "idf.flashType": "UART"
 }

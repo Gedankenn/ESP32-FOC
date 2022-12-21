@@ -1,21 +1,15 @@
 #include "PWM.h"
 
+
 extern double Tmax;
 static const char *TAG  = "PWM";
 extern double pi;
 
-double FEM_sin(double ang)
-{
-    return sin(ang);
-}
-
 void update_motor_speed_callback(double comp_value, double theta){
     double duty_A, duty_B, duty_C;
-    // duty=100*(comp_value/1000);
     duty_A = comp_value*FEM_sin(theta);
     duty_B = comp_value*FEM_sin(theta + pi/3.0);
     duty_C = comp_value*FEM_sin(theta - pi/3.0);
-    // ESP_LOGI(TAG, " update motor speed: V = %f  duty cycle: A:%f|B:%f|C:%f ",comp_value,duty_A,duty_B,duty_C);
     
     if(duty_A >= 0)
     {
@@ -50,13 +44,6 @@ void update_motor_speed_callback(double comp_value, double theta){
         mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_2, MCPWM0A, 0);
         mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_2, MCPWM0B, duty_C);
     }
-}
-
-void atualiza_velocidade(double V, double theta){
-    double comp_value;
-    comp_value = V*BLDC_MCPWM_PERIOD/Tmax;
-    update_motor_speed_callback(comp_value, theta);
-    // ESP_LOGI(TAG, "PWM Count =  %f | V = %f",comp_value,V);
 }
 
 void PWM_init(void){

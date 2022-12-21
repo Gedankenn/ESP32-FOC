@@ -89,3 +89,10 @@ void example_adc_calibration_deinit(adc_cali_handle_t handle)
     ESP_ERROR_CHECK(adc_cali_delete_scheme_line_fitting(handle));
 #endif
 }
+
+double GetADCValue(void)
+{
+    //** Leitura da referencia
+    ESP_ERROR_CHECK(adc_oneshot_read(adc1_handle, EXAMPLE_ADC1_CHAN0, &adc_raw[0][0]));
+    return adc_raw[0][0];
+}

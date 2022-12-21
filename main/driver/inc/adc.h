@@ -34,3 +34,4 @@ bool do_calibration1;
 void adc_init(void);
 bool example_adc_calibration_init(adc_unit_t unit, adc_atten_t atten, adc_cali_handle_t *out_handle);
 void example_adc_calibration_deinit(adc_cali_handle_t handle);
+double GetADCValue(void);

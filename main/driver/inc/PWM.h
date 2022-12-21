@@ -6,11 +6,10 @@
 #include "esp_timer.h"
 #include "gpio.h"
 #include "math.h"
+#include "VF.h" 
 
 #define BLDC_MCPWM_PERIOD 100
 #define BLDC_MCPWM_FREQUENCY 1000
 
 void PWM_init(void);
 void update_motor_speed_callback(double rpm, double theta);
-void atualiza_velocidade(double rpm, double theta);
-double FEM_sin(double ang);
