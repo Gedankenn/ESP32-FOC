@@ -1,9 +1,4 @@
-#include "PWM.h"
-
-
-extern double Tmax;
-static const char *TAG  = "PWM";
-extern double pi;
+#include "driver/inc/PWM.h"
 
 void update_motor_speed_callback(double comp_value, double theta){
     double duty_A, duty_B, duty_C;

@@ -1,10 +1,11 @@
 
-#include "adc.h"
+#include "driver/inc/adc.h"
 //*--------------------------------------------------------------
 //*--------------------------------------------------------------
 extern bool do_calibration1;
 extern adc_oneshot_unit_handle_t adc1_handle;
 extern adc_cali_handle_t adc1_cali_handle;
+char *TAG_ADC = "ADC";
 
 //* ADC INIT
 void adc_init(void){

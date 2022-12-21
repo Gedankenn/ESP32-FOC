@@ -1,5 +1,3 @@
-#include "driver/gpio.h"
-
 // *----gpio config -----------------------
 
 // #define BLDC_DRV_EN_GPIO    18

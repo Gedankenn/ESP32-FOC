@@ -1,9 +1,11 @@
 //! Function that executes de necessary steps for the FOC implementation
 //! First try will be in open loop
 #include "application/inc/VF.h"
+#include "driver/inc/PWM.h"
 
 
 const static char *TAG_VF = "Open-Loop VF";
+const TickType_t xDelay_VF = 10 / portTICK_PERIOD_MS;
 
 void OpenLoopVF_Control(void *arg)
 {
@@ -25,7 +27,7 @@ void OpenLoopVF_Control(void *arg)
         printf("V = %f\n",V);
         printf("rad = %f\n",rad);
         printf("theta = %f\n",theta);
-        vTaskDelay(xDelay);
+        vTaskDelay(xDelay_VF);
 
     }
 }

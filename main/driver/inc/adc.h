@@ -18,13 +18,11 @@
 int adc_raw[2][10];
 double voltage[2][10];
 
-const double nADC       = 4095;
-const double pi         = 3.141592;
-const double gain_adc   = max_rpm/nADC;
-const double F_adc      = 10000;
-const double T_adc      = 1/F_adc;
-
-const static char *TAG_ADC = "ADC";
+#define nADC        (4095)
+#define pi          (3.141592)
+#define gain_adc    (max_rpm/nADC)
+#define F_adc       10000
+#define T_adc       (1/F_adc)
 
 adc_oneshot_unit_handle_t adc1_handle;
 adc_cali_handle_t adc1_cali_handle;

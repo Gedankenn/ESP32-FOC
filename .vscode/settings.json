@@ -15,7 +15,9 @@
     "numbers": "c",
     "pwm.h": "c",
     "vf.h": "c",
-    "functional": "c"
+    "functional": "c",
+    "*.tcc": "c",
+    "string.h": "c"
   },
   "idf.flashType": "UART"
 }

@@ -6,7 +6,7 @@
 #include "esp_timer.h"
 #include "gpio.h"
 #include "math.h"
-#include "VF.h" 
+#include "application/inc/VF.h" 
 
 #define BLDC_MCPWM_PERIOD 100
 #define BLDC_MCPWM_FREQUENCY 1000
