@@ -9,8 +9,10 @@ const TickType_t xDelay_VF = 10 / portTICK_PERIOD_MS;
 
 void OpenLoopVF_Control(void *arg)
 {
-    int ref;
-    double rad;
+    double ref = 0;
+    double rad = 0;
+    double theta = 0;
+    double Volts = 0;
     while(1){
         ESP_LOGI(TAG_VF, "Entrada da task VF");
         ref = GetADCValue();
@@ -19,12 +21,12 @@ void OpenLoopVF_Control(void *arg)
 
         theta = fmod((theta+rad*T_adc),(2*pi)); //* the position in radians
 
-        V = ref*Gf; //* the actual VF control
-        if(V >= Tmax){
-            V = Tmax;
+        Volts = ref*Gf; //* the actual VF control
+        if(Volts >= Tmax){
+            Volts = Tmax;
         }
-        UpdateSpeed(V, theta); //* send a reference in Volts.
-        printf("V = %f\n",V);
+        UpdateSpeed(Volts, theta); //* send a reference in Volts.
+        printf("V = %f\n",Volts);
         printf("rad = %f\n",rad);
         printf("theta = %f\n",theta);
         vTaskDelay(xDelay_VF);

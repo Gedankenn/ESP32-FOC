@@ -12,11 +12,6 @@
 #include "esp_timer.h"
 #include "esp_attr.h"
 
-double ref;
-double rad;
-double theta;
-double V    ;
-
 #define rpm_to_rad  (2*pi/60)
 #define max_rpm     (10000)
 #define Tmax        (12)

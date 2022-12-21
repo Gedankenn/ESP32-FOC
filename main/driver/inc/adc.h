@@ -15,18 +15,11 @@
 //*ADC1 Channels
 #define EXAMPLE_ADC1_CHAN0      ADC_CHANNEL_0
 
-int adc_raw[2][10];
-double voltage[2][10];
-
 #define nADC        (4095)
 #define pi          (3.141592)
 #define gain_adc    (max_rpm/nADC)
 #define F_adc       10000
 #define T_adc       (1/F_adc)
-
-adc_oneshot_unit_handle_t adc1_handle;
-adc_cali_handle_t adc1_cali_handle;
-bool do_calibration1;
 // *--------- END CONFIG ------------------------
 
 void adc_init(void);

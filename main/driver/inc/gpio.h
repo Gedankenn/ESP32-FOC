@@ -11,4 +11,6 @@
 #define GPIO_PWM2A_OUT 15   //Set GPIO 15 as PWM2A
 #define GPIO_PWM2B_OUT 14   //Set GPIO 14 as PWM2B
 
+#define BLDC_DRV_EN_GPIO 22
+
 void gpio_init(void);

@@ -2,9 +2,9 @@
 #include "driver/inc/adc.h"
 //*--------------------------------------------------------------
 //*--------------------------------------------------------------
-extern bool do_calibration1;
-extern adc_oneshot_unit_handle_t adc1_handle;
-extern adc_cali_handle_t adc1_cali_handle;
+adc_oneshot_unit_handle_t adc1_handle;
+adc_cali_handle_t adc1_cali_handle;
+bool do_calibration1;
 char *TAG_ADC = "ADC";
 
 //* ADC INIT
@@ -94,6 +94,7 @@ void example_adc_calibration_deinit(adc_cali_handle_t handle)
 double GetADCValue(void)
 {
     //** Leitura da referencia
+    int adc_raw[2][10];
     ESP_ERROR_CHECK(adc_oneshot_read(adc1_handle, EXAMPLE_ADC1_CHAN0, &adc_raw[0][0]));
     return adc_raw[0][0];
 }
