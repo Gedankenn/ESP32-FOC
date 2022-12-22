@@ -12,9 +12,9 @@
 #include "esp_timer.h"
 #include "esp_attr.h"
 
-#define rpm_to_rad  (2*pi/60)
-#define max_rpm     (10000)
-#define Tmax        (12)
+#define rpm_to_rad  (2.0*pi/60.0)
+#define max_rpm     (10000.0)
+#define Tmax        (12.0)
 #define Gf          (Tmax/(max_rpm))
 
 

@@ -5,11 +5,11 @@
 
 
 const static char *TAG_VF = "Open-Loop VF";
-const TickType_t xDelay_VF = 10 / portTICK_PERIOD_MS;
+const TickType_t xDelay_VF = 200 / portTICK_PERIOD_MS;
 
 void OpenLoopVF_Control(void *arg)
 {
-    double ref = 0;
+    int ref = 0;
     double rad = 0;
     double theta = 0;
     double Volts = 0;
@@ -26,6 +26,7 @@ void OpenLoopVF_Control(void *arg)
             Volts = Tmax;
         }
         UpdateSpeed(Volts, theta); //* send a reference in Volts.
+        printf("ref = %d\n",ref);
         printf("V = %f\n",Volts);
         printf("rad = %f\n",rad);
         printf("theta = %f\n",theta);

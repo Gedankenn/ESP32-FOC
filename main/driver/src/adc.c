@@ -91,7 +91,7 @@ void example_adc_calibration_deinit(adc_cali_handle_t handle)
 #endif
 }
 
-double GetADCValue(void)
+int GetADCValue(void)
 {
     //** Leitura da referencia
     int adc_raw[2][10];

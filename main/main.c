@@ -18,7 +18,7 @@
 #include "driver/inc/PWM.h"
 
 
-const TickType_t xDelay = 1 / portTICK_PERIOD_MS;
+const TickType_t xDelay = 10 / portTICK_PERIOD_MS;
 TaskHandle_t handle_VF = NULL;
 
 void app_main(void)

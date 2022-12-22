@@ -15,14 +15,14 @@
 //*ADC1 Channels
 #define EXAMPLE_ADC1_CHAN0      ADC_CHANNEL_0
 
-#define nADC        (4095)
+#define nADC        (4095.0)
 #define pi          (3.141592)
 #define gain_adc    (max_rpm/nADC)
-#define F_adc       10000
+#define F_adc       10000.0
 #define T_adc       (1/F_adc)
 // *--------- END CONFIG ------------------------
 
 void adc_init(void);
 bool example_adc_calibration_init(adc_unit_t unit, adc_atten_t atten, adc_cali_handle_t *out_handle);
 void example_adc_calibration_deinit(adc_cali_handle_t handle);
-double GetADCValue(void);
+int GetADCValue(void);
