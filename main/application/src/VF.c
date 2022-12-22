@@ -5,7 +5,7 @@
 
 
 const static char *TAG_VF = "Open-Loop VF";
-const TickType_t xDelay_VF = 200 / portTICK_PERIOD_MS;
+const TickType_t xDelay_VF = 100 / portTICK_PERIOD_MS;
 
 void OpenLoopVF_Control(void *arg)
 {
@@ -40,8 +40,8 @@ double FEM_sin(double ang)
     return sin(ang);
 }
 
-void UpdateSpeed(double V, double theta){
+void UpdateSpeed(double Volts, double theta){
     double comp_value;
-    comp_value = V*BLDC_MCPWM_PERIOD/Tmax;
+    comp_value = Volts*BLDC_MCPWM_PERIOD/Tmax;
     update_motor_speed_callback(comp_value, theta);
 }
