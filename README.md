@@ -149,3 +149,29 @@ duty_C = comp_value*FEM_sin(theta - pi/3.0);
 by changing the value of the $\omega$ we can adjust the Voltage value so the motor can run. 
 
 Another necessary step is muntiplying the $\omega_{ref}$ that comes form the reference to the Gain of the V/F method by all the 3 phases FEM curve.
+
+### Motor specs
+
+For this work i will be using a A2212/13T brushless motor.
+
+* Resistance 0.090$\Omega$
+* Poles 14
+* Inductance 0.1mH
+
+## Calculations
+$
+K_v = \frac{\omega_{rpm}}{V_P0.95}
+$
+
+$K_v$ - is the voltage constante of a motor, rought means how many rotations the motor will go for every Volt.
+
+$
+K_p = \frac{60}{2 \pi  K_v}
+$
+if Kv in rpm
+
+for Kv in rad it simply is the inverse of Kp
+
+$
+K_p = \frac{1}{K_v}
+$
