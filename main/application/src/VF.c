@@ -1,4 +1,4 @@
-//! Function that executes de necessary steps for the FOC implementation
+//! Function that executes de necessary steps for the VF implementation
 //! First try will be in open loop
 #include "application/inc/VF.h"
 #include "driver/inc/PWM.h"

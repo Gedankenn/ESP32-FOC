@@ -18,7 +18,7 @@
 #define nADC        (4095.0)
 #define pi          (3.141592)
 #define gain_adc    (max_rpm/nADC)
-#define F_adc       10000.0
+#define F_adc       1000.0
 #define T_adc       (1/F_adc)
 // *--------- END CONFIG ------------------------
 
