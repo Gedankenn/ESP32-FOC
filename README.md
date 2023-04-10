@@ -2,6 +2,10 @@
 
 Work in progress for the esp32 code of the FOC algorithm for actual control of a BLDC motor.
 
+
+## ESP-32 Pin-Out
+![pinout](figures/ESP32-DOIT-DEVKIT-V1-Board-Pinout-36-GPIOs-updated.webp)
+
 ## Mathematical model for the BLDC motor
 
 $$
