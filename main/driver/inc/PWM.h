@@ -8,8 +8,8 @@
 #include "math.h"
 #include "application/inc/VF.h" 
 
-#define BLDC_MCPWM_PERIOD 180
-#define BLDC_MCPWM_FREQUENCY 20000
+#define BLDC_MCPWM_PERIOD 100
+#define BLDC_MCPWM_FREQUENCY 10000
 
 void PWM_init(void);
 void update_motor_speed_callback(double rpm, double theta);
