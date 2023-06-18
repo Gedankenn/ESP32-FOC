@@ -7,9 +7,10 @@
 #include "gpio.h"
 #include "math.h"
 #include "application/inc/VF.h" 
+#include "adc.h"
 
-#define BLDC_MCPWM_PERIOD 100
-#define BLDC_MCPWM_FREQUENCY 10000
+#define BLDC_MCPWM_FREQUENCY                                      1000.0
+#define BLDC_MCPWM_PERIOD                                               (1/BLDC_MCPWM_FREQUENCY)
 
 void PWM_init(void);
 void update_motor_speed_callback(double rpm, double theta);

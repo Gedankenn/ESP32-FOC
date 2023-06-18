@@ -24,5 +24,6 @@
     "activityBar.background": "#2E2F05",
     "titleBar.activeBackground": "#414207",
     "titleBar.activeForeground": "#FBFBDE"
-  }
+},
+"idf.port": "/dev/ttyACM0"
 }
