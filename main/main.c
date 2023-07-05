@@ -17,22 +17,21 @@
 #include "driver/inc/gpio.h"
 #include "driver/inc/PWM.h"
 
-
-const TickType_t xDelay = 10 / portTICK_PERIOD_MS;
+const TickType_t xDelay = 100 / portTICK_PERIOD_MS;
 TaskHandle_t handle_VF = NULL;
 
 void app_main(void)
 {
 
-    adc_init();
-    gpio_init();
-    PWM_init();
+      adc_init();
+      gpio_init();
+      PWM_init();
 
-    printf("Minimum free heap size: %"PRIu32" bytes\n", esp_get_minimum_free_heap_size());
-    xTaskCreate(OpenLoopVF_Control,"OPEN-LOOP",2048,NULL,5,&handle_VF);
+      printf("Minimum free heap size: %" PRIu32 " bytes\n", esp_get_minimum_free_heap_size());
+      xTaskCreate(OpenLoopVF_Control, "OPEN-LOOP", 2048, NULL, 10, &handle_VF);
 
-    while(1)
-    {
-        vTaskDelay(xDelay);
-    }
+      while (1)
+      {
+            vTaskDelay(xDelay);
+      }
 }

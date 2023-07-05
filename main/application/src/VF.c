@@ -14,7 +14,7 @@ void OpenLoopVF_Control(void *arg)
       double theta = 0;
       double Volts = 0;
       while(1){
-            ESP_LOGI(TAG_VF, "Entrada da task VF");
+            // ESP_LOGI(TAG_VF, "Entrada da task VF");
             ref = GetADCValue();
             //* ideally the ref will be a value of angular velocity in rpm
             rad = ref*gain_adc*rpm_to_rad; //* this rad value is an estimation of the velocity in radians/s.
@@ -26,12 +26,11 @@ void OpenLoopVF_Control(void *arg)
                   Volts = Tmax;
             }
             UpdateSpeed(Volts, theta); //* send a reference in Volts.
-            printf("ref = %d\n",ref);
-            printf("V = %f\n",Volts);
-            printf("rad = %f\n",rad);
-            printf("theta = %f\n",theta);
-            vTaskDelay(xDelay_VF);
-
+            // printf("ref = %d\n",ref);
+            // printf("V = %f\n",Volts);
+            // printf("rad = %f\n",rad);
+            // printf("theta = %f\n",theta);
+            vTaskDelay(10);
       }
 }
 
