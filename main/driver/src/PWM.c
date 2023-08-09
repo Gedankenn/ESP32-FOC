@@ -3,44 +3,56 @@
 void update_motor_speed_callback(double comp_value, double theta)
 {
       double duty_A, duty_B, duty_C;
-      duty_A = comp_value * FEM_sin(theta);
-      duty_B = comp_value * FEM_sin(theta + pi / 3.0);
-      duty_C = comp_value * FEM_sin(theta - pi / 3.0);
+      duty_A = comp_value * FEM_sin(theta) + 80;
+      duty_B = comp_value * FEM_sin(theta + pi / 3.0) + 80;
+      duty_C = comp_value * FEM_sin(theta - pi / 3.0) + 80;
       // duty_A = comp_value;
       // duty_B = comp_value;
       // duty_C = comp_value;
 
       if (duty_A >= 0)
       {
-            mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM0A, duty_A);
             mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM0B, 0);
+            mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM0A, 0);
+            vTaskDelay(5);
+            mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM0A, duty_A);
       }
       else
       {
             duty_A = -1 * duty_A;
             mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM0A, 0);
+            mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM0B, 0);
+            vTaskDelay(5);
             mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM0B, duty_A);
       }
       if (duty_B >= 0)
       {
-            mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_1, MCPWM0A, duty_B);
             mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_1, MCPWM0B, 0);
+            mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_1, MCPWM0A, 0);
+            vTaskDelay(5);
+            mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_1, MCPWM0A, duty_B);
       }
       else
       {
             duty_B = -1 * duty_B;
             mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_1, MCPWM0A, 0);
+            mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_1, MCPWM0B, 0);
+            vTaskDelay(5);
             mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_1, MCPWM0B, duty_B);
       }
       if (duty_C >= 0)
       {
-            mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_2, MCPWM0A, duty_C);
             mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_2, MCPWM0B, 0);
+            mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_2, MCPWM0A, 0);
+            vTaskDelay(5);
+            mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_2, MCPWM0A, duty_C);
       }
       else
       {
             duty_C = -1 * duty_C;
             mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_2, MCPWM0A, 0);
+            mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_2, MCPWM0B, 0);
+            vTaskDelay(5);
             mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_2, MCPWM0B, duty_C);
       }
 }

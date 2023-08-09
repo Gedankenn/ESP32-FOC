@@ -3,8 +3,7 @@
   "idf.adapterTargetName": "esp32",
   "idf.portWin": "COM3",
   "idf.openOcdConfigs": [
-    "interface/ftdi/esp32_devkitj_v1.cfg",
-    "target/esp32.cfg"
+    "board/esp32-wrover-kit-3.3v.cfg"
   ],
   "files.associations": {
     "adc_cali_scheme.h": "c",
