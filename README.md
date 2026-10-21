@@ -3,6 +3,54 @@
 Work in progress for the esp32 code of the FOC algorithm for actual control of a BLDC motor.
 
 
+## What the firmware does today
+
+The current firmware runs **open-loop V/F (volts-per-hertz) control** of a BLDC motor, as a first step towards FOC:
+
+- A potentiometer on **GPIO 36 (ADC1 channel 0)** sets the speed reference (0–4095 → 0–10 000 rpm), read as a raw value with the ESP-IDF `adc_oneshot` driver.
+- A FreeRTOS task (`OpenLoopVF_Control`, `main/application/src/VF.c`) integrates the electrical angle from the reference speed, computes the phase voltage with the V/F gain (`Gf = 12 V / 10 000 rpm`, clamped at 12 V) and updates the duty cycles.
+- **MCPWM unit 0** (legacy `driver/mcpwm.h` API) drives three half-bridges at **1 kHz**, with a short delay between switching off one side and switching on the other.
+- **GPIO 22** is configured as the driver-enable output (set low at boot).
+
+### Pin map (`main/driver/inc/gpio.h`)
+
+| Signal | GPIO |
+|--------|------|
+| PWM0A / PWM0B (phase A high / low) | 15 / 2 |
+| PWM1A / PWM1B (phase B high / low) | 4 / 16 |
+| PWM2A / PWM2B (phase C high / low) | 17 / 5 |
+| Driver enable | 22 |
+| Speed reference (potentiometer, ADC1_CH0) | 36 |
+
+The inverter hardware is documented in [3-phase-inverter](https://github.com/Gedankenn/3-phase-inverter).
+
+## Repository layout
+
+```
+ESP32-FOC/
+├── CMakeLists.txt              # ESP-IDF project file
+├── sdkconfig                   # ESP32 target, generated with ESP-IDF 5.1.0
+├── main/
+│   ├── main.c                  # app_main: init ADC, GPIO, PWM; start the V/F task
+│   ├── application/            # VF.c / VF.h: open-loop V/F control task
+│   └── driver/                 # adc.c, gpio.c, PWM.c (+ headers in inc/)
+├── figures/                    # ESP32 DevKit pinout
+└── .devcontainer/              # VS Code dev container based on the espressif/idf image
+```
+
+## Build and flash
+
+ESP-IDF project for the **ESP32** (the `sdkconfig` was generated with ESP-IDF 5.1.0; the code uses the legacy MCPWM driver, which is deprecated in newer ESP-IDF releases).
+
+```bash
+. $IDF_PATH/export.sh
+idf.py set-target esp32
+idf.py build
+idf.py -p /dev/ttyUSB0 flash monitor   # replace with your serial port
+```
+
+A VS Code dev container (`.devcontainer/`, based on `espressif/idf`) is included as an alternative build environment.
+
 ## ESP-32 Pin-Out
 ![pinout](figures/ESP32-DOIT-DEVKIT-V1-Board-Pinout-36-GPIOs-updated.webp)
 
