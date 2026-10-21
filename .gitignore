@@ -103,3 +103,6 @@ managed_components
 
 # pytest log
 pytest_embedded_log/
+# Editor settings and IDF backups
+.vscode/
+sdkconfig.old
