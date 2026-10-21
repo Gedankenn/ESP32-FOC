@@ -4,8 +4,8 @@ void update_motor_speed_callback(double comp_value, double theta)
 {
       double duty_A, duty_B, duty_C;
       duty_A = comp_value * FEM_sin(theta) + 80;
-      duty_B = comp_value * FEM_sin(theta + pi / 3.0) + 80;
-      duty_C = comp_value * FEM_sin(theta - pi / 3.0) + 80;
+      duty_B = comp_value * FEM_sin(theta + 2.0 * pi / 3.0) + 80;
+      duty_C = comp_value * FEM_sin(theta - 2.0 * pi / 3.0) + 80;
       // duty_A = comp_value;
       // duty_B = comp_value;
       // duty_C = comp_value;
