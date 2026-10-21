@@ -1,16 +1,40 @@
-# ESP32 CODE implementation of FOC control method for BLDC MOTOR
+<p align="center"><img src="assets/banner.svg" alt="ESP32-FOC: toward Field-Oriented Control of BLDC motors on the ESP32" width="100%"></p>
 
-Work in progress for the esp32 code of the FOC algorithm for actual control of a BLDC motor.
+<p align="center">
+  <img src="https://img.shields.io/badge/language-C-F2B54A?style=flat-square&labelColor=0F1419" alt="Language: C">
+  <img src="https://img.shields.io/badge/MCU-ESP32-1C2430?style=flat-square&labelColor=0F1419&logo=espressif" alt="MCU: ESP32">
+  <img src="https://img.shields.io/badge/ESP--IDF-5.1-1C2430?style=flat-square&labelColor=0F1419" alt="ESP-IDF 5.1">
+  <img src="https://img.shields.io/badge/RTOS-FreeRTOS-1C2430?style=flat-square&labelColor=0F1419" alt="FreeRTOS">
+</p>
 
+**ESP32-FOC** is ESP-IDF firmware for the ESP32 that works toward Field-Oriented Control (FOC) of a BLDC motor. As a first step it runs **open-loop V/F (volts-per-hertz) control** through a six-switch inverter.
 
-## What the firmware does today
+> **Status: work in progress.** Today: open-loop V/F with a potentiometer speed reference. FOC (Clarke/Park, current loops) is documented below but not yet implemented.
 
-The current firmware runs **open-loop V/F (volts-per-hertz) control** of a BLDC motor, as a first step towards FOC:
+Related: [3-phase-inverter](https://github.com/Gedankenn/3-phase-inverter) (power stage) · [OTPC](https://github.com/Gedankenn/OTPC) (PMSM traction controller, simulation-first) · [BLDC + EKF simulation](https://github.com/Gedankenn/Python-Simulation-of-BLDC-motor-using-Kalman-Filter)
 
-- A potentiometer on **GPIO 36 (ADC1 channel 0)** sets the speed reference (0–4095 → 0–10 000 rpm), read as a raw value with the ESP-IDF `adc_oneshot` driver.
-- A FreeRTOS task (`OpenLoopVF_Control`, `main/application/src/VF.c`) integrates the electrical angle from the reference speed, computes the phase voltage with the V/F gain (`Gf = 12 V / 10 000 rpm`, clamped at 12 V) and updates the duty cycles.
-- **MCPWM unit 0** (legacy `driver/mcpwm.h` API) drives three half-bridges at **1 kHz**, with a short delay between switching off one side and switching on the other.
-- **GPIO 22** is configured as the driver-enable output (set low at boot).
+---
+
+## Overview
+
+| Item | Detail |
+|---|---|
+| **Control** | Open-loop V/F, FreeRTOS task `OpenLoopVF_Control` (`main/application/src/VF.c`) |
+| **Speed reference** | Potentiometer on **GPIO 36 (ADC1 channel 0)**, raw 0–4095 → 0–10 000 rpm, ESP-IDF `adc_oneshot` driver |
+| **V/F gain** | `Gf = 12 V / 10 000 rpm`, phase voltage clamped at 12 V |
+| **PWM** | **MCPWM unit 0** (legacy `driver/mcpwm.h` API), three half-bridges at **1 kHz**, short delay between switching one side off and the other on |
+| **Driver enable** | **GPIO 22**, set low at boot |
+| **Target motor** | A2212/13T brushless motor (see [Motor specs](#motor-specs)) |
+
+## Features
+
+- [x] ADC speed reference (oneshot driver)
+- [x] Electrical-angle integration from the reference speed
+- [x] V/F voltage command with 12 V clamp
+- [x] Three sinusoidal phase duties at 120° offsets driving MCPWM
+- [ ] Field-Oriented Control: Clarke/Park transforms and dq current loops (the goal of this repo; math in [Theory](#theory))
+
+## Hardware
 
 ### Pin map (`main/driver/inc/gpio.h`)
 
@@ -24,9 +48,31 @@ The current firmware runs **open-loop V/F (volts-per-hertz) control** of a BLDC 
 
 The inverter hardware is documented in [3-phase-inverter](https://github.com/Gedankenn/3-phase-inverter).
 
-## Repository layout
+<details>
+<summary><b>ESP32 DevKit pinout</b></summary>
 
+![ESP32 DOIT DevKit V1 pinout](figures/ESP32-DOIT-DEVKIT-V1-Board-Pinout-36-GPIOs-updated.webp)
+
+</details>
+
+### Motor specs
+
+Target motor: **A2212/13T** brushless motor.
+
+| Parameter | Value |
+|---|---|
+| Resistance | 0.090 Ω |
+| Poles | 14 |
+| Inductance | 0.1 mH |
+
+## Architecture
+
+```text
+ADC (GPIO 36) ──▶ OpenLoopVF_Control task ──▶ UpdateSpeed() ──▶ update_motor_speed_callback() ──▶ MCPWM unit 0 ──▶ 3 half-bridges
+   speed ref        θ += ω·T, V = ref·Gf        duty scaling        sin(θ), sin(θ ± 2π/3)            1 kHz
 ```
+
+```text
 ESP32-FOC/
 ├── CMakeLists.txt              # ESP-IDF project file
 ├── sdkconfig                   # ESP32 target, generated with ESP-IDF 5.1.0
@@ -38,9 +84,9 @@ ESP32-FOC/
 └── .devcontainer/              # VS Code dev container based on the espressif/idf image
 ```
 
-## Build and flash
+## Build & Flash
 
-ESP-IDF project for the **ESP32** (the `sdkconfig` was generated with ESP-IDF 5.1.0; the code uses the legacy MCPWM driver, which is deprecated in newer ESP-IDF releases).
+ESP-IDF project for the **ESP32**. The `sdkconfig` was generated with ESP-IDF 5.1.0; the code uses the legacy MCPWM driver, which is deprecated in newer ESP-IDF releases.
 
 ```bash
 . $IDF_PATH/export.sh
@@ -51,10 +97,41 @@ idf.py -p /dev/ttyUSB0 flash monitor   # replace with your serial port
 
 A VS Code dev container (`.devcontainer/`, based on `espressif/idf`) is included as an alternative build environment.
 
-## ESP-32 Pin-Out
-![pinout](figures/ESP32-DOIT-DEVKIT-V1-Board-Pinout-36-GPIOs-updated.webp)
+## Usage
 
-## Mathematical model for the BLDC motor
+Power the inverter, flash the firmware and turn the potentiometer: the reference speed (and with it the V/F voltage) follows the ADC reading.
+
+### How the V/F loop works
+
+V/F is an open-loop method: the phase-voltage amplitude is the reference speed times a fixed gain.
+
+$$
+    G_f = \frac{V_{max}}{\omega_{max}} \qquad V = G_f \, \omega_{ref}
+$$
+
+The control task integrates the electrical angle and computes the voltage command (`main/application/src/VF.c`):
+
+```c
+rad   = ref * gain_adc * rpm_to_rad;          // reference speed, rad/s
+theta = fmod((theta + rad * T_adc), (2 * pi)); // electrical angle
+Volts = ref * Gf * gain_adc;                   // V/F law
+if (Volts >= Tmax) Volts = Tmax;               // clamp
+UpdateSpeed(Volts, theta);
+```
+
+The three phase duties are 120° apart (`main/driver/src/PWM.c`):
+
+```c
+duty_A = comp_value * FEM_sin(theta) + 80;
+duty_B = comp_value * FEM_sin(theta + 2.0 * pi / 3.0) + 80;
+duty_C = comp_value * FEM_sin(theta - 2.0 * pi / 3.0) + 80;
+```
+
+Changing ω changes the voltage, so the motor speeds up or slows down with the reference.
+
+## Theory
+
+### Mathematical model of the BLDC motor
 
 $$
 \frac{d}{dt}
@@ -68,7 +145,6 @@ I_c \\
 = \left(\begin{array}{ccccc}
 -\frac{R}{L-M} & 0 & 0 & -\frac{P_p\phi_mF_a(\theta_e)}{L-M} & 0\\
 0 & -\frac{R}{L-M} & 0 & -\frac{P_p\phi_mF_b(\theta_e)}{L-M} & 0\\
-0 & 0 & -\frac{R}{L-M} & -\frac{P_p\phi_mF_c(\theta_e)}{L-M} & 0\\
 0 & 0 & -\frac{R}{L-M} & -\frac{P_p\phi_mF_c(\theta_e)}{L-M} & 0\\
 \frac{P_p\phi_mF_A(\theta_e)}{J} & \frac{P_p\phi_mF_B(\theta_e)}{J} & \frac{P_p\phi_mF_C(\theta_e)}{J} & -\frac{B}{J} & 0 \\
 0 & 0 & 0 & P_p & 0
@@ -96,9 +172,9 @@ T_c
 \end{array}\right)
 $$
 
-## FOC mathematical operations
+### FOC transforms
 
-### Clarke transform
+#### Clarke transform
 
 $$
     \left(\begin{array}{c}
@@ -120,7 +196,7 @@ $$
     \end{array}\right)
 $$
 
-### Clarke Inverse Transform
+#### Inverse Clarke transform
 
 $$
     \left(\begin{array}{c}
@@ -141,7 +217,7 @@ $$
     \end{array}\right)
 $$
 
-### Park Transform
+#### Park transform
 
 $$
     \left(\begin{array}{c}
@@ -159,7 +235,7 @@ $$
     \end{array}\right)
 $$
 
-### Inverse Park Transform
+#### Inverse Park transform
 
 $$
     \left(\begin{array}{c}
@@ -177,53 +253,21 @@ $$
     \end{array}\right)
 $$
 
-# V/F Control tactic
-For the first run tests, the V/F OpenLoop method was choose.
-
-V/F Control is a open loop method that consist of aplying a gain value for the Voltage of the motor pins.
+#### Motor constants
 
 $$
-    G_f = \frac{V_{max}}{\omega_{max}} \\
-    V_{max} = G_f \omega_{max}
+K_v = \frac{\omega_{rpm}}{V_P \cdot 0.95}
 $$
 
-Code example:
-```
-Volts = ref*Gf*gain_adc;
-comp_value = Volts*BLDC_MCPWM_PERIOD/Tmax;
+$K_v$ is the motor voltage constant: roughly, how many rpm the motor turns per volt.
 
-//here is where de duty cycle is defined
-duty_A = comp_value*FEM_sin(theta);
-duty_B = comp_value*FEM_sin(theta + pi/3.0);
-duty_C = comp_value*FEM_sin(theta - pi/3.0);
-```
+$$
+K_p = \frac{60}{2 \pi K_v} \quad (K_v \text{ in rpm/V}) \qquad\qquad K_p = \frac{1}{K_v} \quad (K_v \text{ in rad/s per V})
+$$
 
-by changing the value of the $\omega$ we can adjust the Voltage value so the motor can run. 
+## License
 
-Another necessary step is muntiplying the $\omega_{ref}$ that comes form the reference to the Gain of the V/F method by all the 3 phases FEM curve.
+No license file has been added to this repository yet.
 
-### Motor specs
-
-For this work i will be using a A2212/13T brushless motor.
-
-* Resistance 0.090$\Omega$
-* Poles 14
-* Inductance 0.1mH
-
-## Calculations
-$
-K_v = \frac{\omega_{rpm}}{V_P0.95}
-$
-
-$K_v$ - is the voltage constante of a motor, rought means how many rotations the motor will go for every Volt.
-
-$
-K_p = \frac{60}{2 \pi  K_v}
-$
-if Kv in rpm
-
-for Kv in rad it simply is the inverse of Kp
-
-$
-K_p = \frac{1}{K_v}
-$
+---
+<sub>Part of <a href="https://github.com/Gedankenn">Fabio Slika Stella's</a> embedded work · <a href="https://gedankenn.github.io/Gedankenn/">portfolio</a></sub>
